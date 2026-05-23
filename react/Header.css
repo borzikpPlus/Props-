@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 2px solid red;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 24px;
+  color: #dd0031;
+  margin-right: 20px;
+}
+
+.title {
+  margin: 0 auto;
+}
+
+.buttons button {
+  margin: 0 5px;
+}
+
+.items {
+  margin-left: 20px;
+}
+
+.items button {
+  margin: 0 3px;
+  border: 1px solid green;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
