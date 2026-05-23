@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <title>MyFirstProject</title>
   <style>
+    body {
+      margin: 0;
+    }
+    .page {
+      min-height: 100vh;
+    }
     .header {
       display: flex;
       align-items: center;
@@ -45,15 +51,9 @@
       constructor(props) {
         super(props);
         this.state = {
-          dark: false,
           color: '#9ef0c9'
         };
-        this.toggleTheme = this.toggleTheme.bind(this);
         this.changeColor = this.changeColor.bind(this);
-      }
-
-      toggleTheme() {
-        this.setState({ dark: !this.state.dark });
       }
 
       changeColor() {
@@ -64,8 +64,8 @@
 
       render() {
         const headerStyle = {
-          background: this.state.dark ? '#222' : '#f8c8dc',
-          color: this.state.dark ? '#fff' : '#000'
+          background: this.props.dark ? '#333' : '#f8c8dc',
+          color: this.props.dark ? '#fff' : '#000'
         };
 
         const itemStyle = {
@@ -78,7 +78,7 @@
             <div className="title">Header</div>
             <div className="buttons">
               <button onClick={this.changeColor}>Цвет</button>
-              <button onClick={this.toggleTheme}>Тема</button>
+              <button onClick={this.props.onToggle}>Тема</button>
             </div>
             <div className="items">
               <button style={itemStyle}>Item 1</button>
@@ -92,8 +92,38 @@
       }
     }
 
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          dark: false
+        };
+        this.toggleTheme = this.toggleTheme.bind(this);
+      }
+
+      toggleTheme() {
+        this.setState({ dark: !this.state.dark });
+      }
+
+      render() {
+        const pageStyle = {
+          background: this.state.dark ? '#222' : '#fff',
+          color: this.state.dark ? '#fff' : '#000'
+        };
+
+        return (
+          <div className="page" style={pageStyle}>
+            <Header dark={this.state.dark} onToggle={this.toggleTheme} />
+            <p style={{ padding: '10px' }}>
+              Текущая тема: {this.state.dark ? 'Тёмная' : 'Светлая'}
+            </p>
+          </div>
+        );
+      }
+    }
+
     const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<Header />);
+    root.render(<App />);
   </script>
 </body>
 </html>
